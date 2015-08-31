@@ -26,5 +26,6 @@ Example:
 
 <code>
 22:40|Hora de dormir
+
 4:20|virjes everywhere
 </code>
