@@ -1,6 +1,10 @@
 # Telegram-api-msg-bot
 Shell Script to send messages to Telegram using BOT
 
+To configure your bot, RTFM:
+
+<code>https://core.telegram.org/bots</code>
+
 # Install
 
 <code>
