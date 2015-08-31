@@ -11,12 +11,18 @@ git clone https://github.com/area31/Telegram-api-msg-bot.git
 mv Telegram-api-msg-bot /opt
 </code>
 
-# Add to crontab
+# Configure your API KEY in file send-msg-telegram.conf
 
-<code> * * * * *     root    /opt/Telegram-api-msg-bot/send-msg-telegram msg</code>
+<pre>
+DEBUG="0"
+KEY="KEY HERE"
+MSG_FILE="/opt/Telegram-api-msg-bot/msg.txt"
+</pre>
+
+* To debug, set 1 on $DEBUG
 
 
-# Msg format
+# Configure your alerts on correct format in file msg.txt
 
 <code>
 Time | MSG
@@ -28,3 +34,8 @@ Example:
 22:40|Hora de dormir
 4:20|virjes everywhere
 </pre>
+
+# Add to crontab
+
+<code> * * * * *     root    /opt/Telegram-api-msg-bot/send-msg-telegram msg</code>
+
