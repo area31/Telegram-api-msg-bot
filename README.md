@@ -13,9 +13,7 @@ mv Telegram-api-msg-bot /opt
 
 # Add to crontab
 
-<code>
-* * * * *     root    /opt/Telegram-api-msg-bot/send-msg-telegram msg
-</code>
+<code> * * * * *     root    /opt/Telegram-api-msg-bot/send-msg-telegram msg</code>
 
 
 # Msg format
