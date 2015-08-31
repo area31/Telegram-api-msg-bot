@@ -1,0 +1,61 @@
+#!/bin/bash
+
+source ${0}.conf
+
+if [ "${DEBUG}" -eq "1" ];then
+	set -x
+fi
+
+TIME=$(date +'%H:%M')
+
+
+# remove extra whitespace
+crunch() {
+		while read FOO ; do
+			echo $FOO
+		done
+		}
+
+urlencode() {
+	local length="${#1}"
+	for (( i = 0; i < length; i++ )); do
+		local c="${1:i:1}"
+		case $c in
+			[a-zA-Z0-9.~_-]) printf "$c" ;;
+	    	*) printf "$c" | xxd -p -c1 | while read x;do printf "%%%s" "$x";done
+		esac
+	done
+}
+
+case "$1" in
+getUpdates)
+	curl -s "https://api.telegram.org/bot${KEY}/getUpdates"
+
+;;
+msg)
+
+while IFS='|' read TIME_MSG TEXT_MSG;do
+	if [ "${TIME}" = "${TIME_MSG}" ]; then
+		MSG_HTML=$(urlencode "${TEXT_MSG}")
+		curl -s "https://api.telegram.org/bot${KEY}/sendMessage?chat_id=-29909853&text=${MSG_HTML}"
+	fi
+done < ${MSG_FILE}
+
+;;
+viewmsg)
+	echo -e "\nAgendamentos:"
+	while IFS='|' read TIME_MSG TEXT_MSG;do
+		echo -e "\nHora: ${TIME_MSG} | Msg: ${TEXT_MSG}"
+	done <  ${MSG_FILE}
+	echo -e "\nEnd."
+
+;;
+*)
+        echo -e "\nUsage: $0 <options>\n\nOptions:\n"
+		echo -e "getUpdates	- Use this method to receive incoming updates using long polling"
+		echo -e "Help		- This menu"
+		echo -e "msg		- Send messages"
+		echo -e "viewmsg		- View messages\n"
+        exit 1
+;;
+esac
