@@ -37,7 +37,7 @@ msg)
 while IFS='|' read TIME_MSG TEXT_MSG;do
 	if [ "${TIME}" = "${TIME_MSG}" ]; then
 		MSG_HTML=$(urlencode "${TEXT_MSG}")
-		curl -s "https://api.telegram.org/bot${KEY}/sendMessage?chat_id=-29909853&text=${MSG_HTML}"
+		curl -s "https://api.telegram.org/bot${KEY}/sendMessage?chat_id=${CHAT_ID}&text=${MSG_HTML}"
 	fi
 done < ${MSG_FILE}
 
