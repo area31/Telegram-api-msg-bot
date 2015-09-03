@@ -42,10 +42,15 @@ while IFS='|' read TIME_MSG TEXT_MSG;do
 done < ${MSG_FILE}
 
 ;;
+msgnow)
+		MSG_HTML=$(urlencode "$2")
+		curl -s "https://api.telegram.org/bot${KEY}/sendMessage?chat_id=${CHAT_ID}&text=${MSG_HTML}"
+
+;;
 viewmsg)
 	echo -e "\nAgendamentos:"
 	while IFS='|' read TIME_MSG TEXT_MSG;do
-		echo -e "\nHora: ${TIME_MSG} | Msg: ${TEXT_MSG}"
+		echo -e "\nHora: ${TIME_MSG}\nMsg: ${TEXT_MSG}"
 	done <  ${MSG_FILE}
 	echo -e "\nEnd."
 
